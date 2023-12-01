@@ -60,7 +60,7 @@ function Signup() {
             setMassage(res.massage);
     }
     
-    const signup = (event, email, name,phonenumber, address, dob, height, gender, eyecolor, bloodgroup) => {
+    const signup = (event, email, name, password, phonenumber, address, dob, height, gender, eyecolor, bloodgroup) => {
         event.preventDefault();
 
 
@@ -73,6 +73,7 @@ function Signup() {
             body: JSON.stringify({
                 'email': email, 
                 'name' : name,
+                'password': password,
                 'phone' : phonenumber,
                 'address' : address,
                 'dob': dob,
@@ -196,7 +197,7 @@ function Signup() {
                         disabled={!(phonenumber && email && password && cpassword && (password === cpassword) )}
                         type='submit' 
                         className="signup__signInButton" 
-                        onClick={(event) =>  signup(event, email, name, phonenumber, address, dob, height, gender, eyecolor, bloodgroup) }>
+                        onClick={(event) =>  signup(event, email, name, password, phonenumber, address, dob, height, gender, eyecolor, bloodgroup) }>
                             Signup
                     </button>
                 </form>
