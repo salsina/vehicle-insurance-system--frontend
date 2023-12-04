@@ -26,7 +26,8 @@ function ProductForm(props) {
     const [purchasedate, setPurchasedate] = useState('');
     const [vehiclestatus, setVehiclestatus] = useState('');
     const [mileage, setMileage] = useState('');
-
+    const [vehicleId, setVehiclestatusId] = useState('');
+    const [packageId, setPackageId] = useState('');
 
     let status = null;
 
@@ -95,9 +96,28 @@ function ProductForm(props) {
     }
 
 
-    const createupdateProduct_CatSubTag = (event, Category, SubCategory, Tags) => {
+    const subscribe_package = (event, vehicleId, packageId) => {
         event.preventDefault();
-        
+        const url = `${API_URL}/subscribe-package`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${state.token}`
+            },
+            body: JSON.stringify({
+                'userId' : "id",
+                'vehicleId': vehicleId, 
+                'packageId': packageId
+            })
+        })
+        .then(resp => {
+            status = resp.status;
+            return resp.json();
+        })
+        .then(res => handleResponse(res))
+        .catch(errors => console.log(errors));
+
     }
 
     function get_packages() {
@@ -246,7 +266,7 @@ function ProductForm(props) {
                     </div>
 
 
-                    <button className="productForm_Container_button1"type='submit' onClick={(e) => createupdateProduct_CatSubTag(e, title, description, price, quantity)}>
+                    <button className="productForm_Container_button1"type='submit' onClick={(e) => subscribe_package(e, vehicleId, packageId)}>
                             submit
                     </button>
                     <br></br>
