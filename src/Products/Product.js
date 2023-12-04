@@ -9,9 +9,9 @@ function Product(props) {
         <td>{props.packageDescription}</td>
         <td>${props.packagePrice}</td>
         <td>{props.tenure}</td>
-        <td>
+        {/* <td>
             <input type="checkbox" name="item1" />
-        </td>
+        </td> */}
         </tr>
     )
 }

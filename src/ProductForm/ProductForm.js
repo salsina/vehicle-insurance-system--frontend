@@ -34,7 +34,7 @@ function ProductForm(props) {
     let [p, setPackages] = useState([]);
     let packages = [];
 
-    useEffect( async () => {
+    // useEffect( async () => {
         // user = await GetUser(state);
         // dispatch({
         //     type: 'SET_USER_INFO',
@@ -48,7 +48,7 @@ function ProductForm(props) {
         //     })
         // }
 
-    }, [])
+    // }, [])
     
     // useEffect(() => console.log(categories), [categories])
     // useEffect(() => console.log(selected_categories), [selected_categories])
@@ -233,7 +233,7 @@ function ProductForm(props) {
                         <th>Description</th>
                         <th>Price</th>
                         <th>Tenure</th>
-                        <th>Select</th>
+                        {/* <th>Select</th> */}
                         </tr>
                     </thead>
                     <tbody>                       
@@ -246,6 +246,16 @@ function ProductForm(props) {
                         />
 
                     </tbody>
+                    <select>
+                    {/* {myList.map((item, index) => (
+                        <li key={index}>
+                        Iteration {index + 1}: {item}
+                        </li>
+                    ))} */}
+                        <option value="option1">Package 1</option>
+                        <option value="option2">Package 2</option>
+                        <option value="option3">Package 3</option>
+                    </select>
                     </table>
 
 
