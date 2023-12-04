@@ -4,6 +4,7 @@ import { useStateValue } from '../StateManager/StateProvider';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { API_URL } from '../EnviormentVariables';
 import './ProductForm.css'
+import Product from '../Products/Product';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 function ProductForm(props) {
     let user;
@@ -16,39 +17,36 @@ function ProductForm(props) {
     const [price, setPrice] = useState(product?.price ? product.price : '');
     const [quantity, setQuantity] = useState(product?.quantity ? product.quantity : '');
     const [categories, setCategories] = useState([]);
-    let status = null;
-    let selected_categories = product ? [...product.category] : []
 
-    const [tags, setTags] = useState([{
-        'tag': '',
-    }])
+    const [vehiclename, setVehiclename] = useState('');
+    const [vehiclemodel, setVehiclemodel] = useState('');
+    const [vehicletype, setVehicletype] = useState('');
+    const [licensenumber, setLicensenumber] = useState('');
+    const [registrationnumber, setRegistrationnumber] = useState('');
+    const [purchasedate, setPurchasedate] = useState('');
+    const [vehiclestatus, setVehiclestatus] = useState('');
+    const [mileage, setMileage] = useState('');
+
+
+    let status = null;
+
+    let [p, setPackages] = useState([]);
+    let packages = [];
 
     useEffect( async () => {
-        user = await GetUser(state);
-        dispatch({
-            type: 'SET_USER_INFO',
-            user: user
-        });
+        // user = await GetUser(state);
+        // dispatch({
+        //     type: 'SET_USER_INFO',
+        //     user: user
+        // });
 
-        if(user?.role != 'company') {
-            history.push({
-                pathname: "/login",
-                state: {massage: 'You have to login to your company account first!'}
-            })
-        }
+        // if(user?.role != 'company') {
+        //     history.push({
+        //         pathname: "/login",
+        //         state: {massage: 'You have to login to your company account first!'}
+        //     })
+        // }
 
-        const url = `${API_URL}/api/getcategorylist/`;
-        fetch(url, {
-            method: 'GET',
-            headers: {
-                'Authorization': `Token ${state.token}`
-            }
-        })
-        .then((resp) => resp.json())
-        .then((res) => {
-            setCategories(res);
-        })
-        .catch((errors) => console.log(errors))
     }, [])
     
     // useEffect(() => console.log(categories), [categories])
@@ -56,129 +54,144 @@ function ProductForm(props) {
 
     const handleResponse = (response) => {
         console.log(response);
-        if(status === 201 || status === 200) {
-            history.push("/dashboard");
-            alert(product ? "Product successfully updated!" : "Product successfully created!");
-        } else {
-            history.push("/dashboard");
-            alert("Somthing went wrong try again!");
-        }
+        // if(status === 201 || status === 200) {
+        //     history.push("/dashboard");
+        //     alert(product ? "Product successfully updated!" : "Product successfully created!");
+        // } else {
+        //     history.push("/dashboard");
+        //     alert("Somthing went wrong try again!");
+        // }
     }
 
-    const createupdateProduct_TitDescPriQuan = (event, title, description, price, quantity) => {
+    const register_vehicle = (event, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage) => {
         event.preventDefault();
         
-        // const url = (product ? `${API_URL}/api/product/${product.id}/` : `${API_URL}/api/product/`);
-        // fetch(url, {
-        //     method: product ? 'PUT' : 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Token ${state.token}`
-        //     },
-        //     body: JSON.stringify({
-        //         'title' : title,
-        //         'description': description, 
-        //         'price': price,
-        //         'category': arrayTostring(selected_categories)
-        //     })
-        // })
-        // .then(resp => {
-        //     status = resp.status;
-        //     return resp.json();
-        // })
-        // .then(res => handleResponse(res))
-        // .catch(errors => console.log(errors));
-        openForm_CatSubTag();
+        const url = `${API_URL}/register-vehicle`;
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Token ${state.token}`
+            },
+            body: JSON.stringify({
+                'userId' : title,
+                'vehicleName': vehiclename, 
+                'vehicleModel': vehiclemodel,
+                'vehicleType': vehicletype,
+                'licenseNumber': licensenumber,
+                'registerationNumber': registrationnumber,
+                'purchaseDate': purchasedate,
+                'vehicleStatus': vehiclestatus,
+                'mileage': mileage
+            })
+        })
+        .then(resp => {
+            status = resp.status;
+            return resp.json();
+        })
+        .then(res => handleResponse(res))
+        .catch(errors => console.log(errors));
+        get_packages();
     }
 
 
     const createupdateProduct_CatSubTag = (event, Category, SubCategory, Tags) => {
         event.preventDefault();
         
-        openForm_Img();
     }
 
-    const createupdateProduct_Img = (event) => {
-        event.preventDefault();
+    function get_packages() {
+
+
+        // const url = `${API_URL}/get-packages`;
+        // const loadPackages = async () => { return await Promise.all(
+        //     await fetch(url, {
+        //         method: 'GET',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //             'Authorization': `Token ${state.token}`
+        //         }
+        //     })
+        //     .then(resp => resp.json())
+        //     .then(res => {
+        //         packages = [...packages, res];
+        //     })
+        //     .catch(errors => console.log(errors))
+        // )};
         
-    }
+        // loadPackages().then(() => {
+        //     setPackages(packages);
+        //     console.log(packages);
+        // });
 
-    const handleCategories = (event, categoryName) => {        
-        if(event.target.checked) {
-            if(selected_categories.indexOf(categoryName) === -1)
-                selected_categories = [...selected_categories, categoryName]
-        } else {
-            selected_categories.splice(selected_categories.indexOf(categoryName), 1)
-        }
-    }
-
-    const arrayTostring = (array) => {
-        let string = '';
-        array.map(item => string += (item+' '))
-        return string;
-    }
-
-    function openForm_TitDescPriQuan() {
-        document.getElementById("TitDescPriQuan-form").style.display = "block";
-        document.getElementById("CatSubTag-form").style.display = "none";
-        document.getElementById("Img-form").style.display = "none";
-    }
-
-    function openForm_CatSubTag() {
         document.getElementById("TitDescPriQuan-form").style.display = "none";
         document.getElementById("CatSubTag-form").style.display = "block";
-        document.getElementById("Img-form").style.display = "none";
+        document.getElementById("header1").style.display = "none";
+        document.getElementById("header2").style.display = "block";
     }   
+  
 
-    function openForm_Img() {
-        document.getElementById("TitDescPriQuan-form").style.display = "none";
-        document.getElementById("CatSubTag-form").style.display = "none";
-        document.getElementById("Img-form").style.display = "block";
-    }   
 
-    const add_new_Tag_input = (event) =>{
-        setTags([...tags, {
-            'title': '',
-            'address': '',
-            'display': 'false'
-        }])
-    }
     return (
         <div className="productForm">
             <div className="productForm_Container">
-                <h1>Information of The New Product</h1>
+
+                <h1 id="header1">Please enter the vehicle information</h1>
 
                 {/* <div className="TitDescPriQuanr" id="TitDescPriQuan-form"> */}
                     <form id="TitDescPriQuan-form">
                         <input 
-                            placeholder="Title"
+                            placeholder="Vehicle Name"
                             type='text' 
-                            value={title} 
-                            onChange={(e) => setTitle(e.target.value)}
+                            value={vehiclename} 
+                            onChange={(e) => setVehiclename(e.target.value)}
                         />
                         <input 
-                            placeholder="Description"
+                            placeholder="Vehicle Model"
                             type='text' 
-                            value={description} 
-                            onChange={(e) => setDescription(e.target.value)}
+                            value={vehiclemodel} 
+                            onChange={(e) => setVehiclemodel(e.target.value)}
                         />
                         <input 
-                            placeholder="minimum deposit to rent"
-                            type='number' 
-                            min ="0"
-                            value={price} 
-                            onChange={(e) => setPrice(e.target.value)}
+                            placeholder="Vehicle Type"
+                            type='text' 
+                            value={vehicletype} 
+                            onChange={(e) => setVehicletype(e.target.value)}
                         />
                         <input 
-                            placeholder="available quantity"
-                            type='number' 
+                            placeholder="License Number"
+                            type='text' 
+                            value={licensenumber} 
+                            onChange={(e) => setLicensenumber(e.target.value)}
+                        />
+                        <input 
+                            placeholder="Registration Number"
+                            type='text' 
+                            value={registrationnumber} 
+                            onChange={(e) => setRegistrationnumber(e.target.value)}
+                        />
+                        <input 
+                            placeholder="Purchase Date"
+                            type='text' 
+                            value={purchasedate} 
+                            onChange={(e) => setPurchasedate(e.target.value)}
+                        />
+                        <input 
+                            placeholder="Vehicle Status"
+                            type='text' 
+                            value={vehiclestatus} 
+                            onChange={(e) => setVehiclestatus(e.target.value)}
+                        />
+                        <input 
+                            placeholder="Mileage"
+                            type='integer' 
                             min ="0"
-                            value={quantity} 
-                            onChange={(e) => setQuantity(e.target.value)}
+                            value={mileage} 
+                            onChange={(e) => setMileage(e.target.value)}
                         />
                         {/* <div className = "buttuns"> */}
-                            <button className="productForm_Container_button1"type='submit' onClick={(e) => createupdateProduct_TitDescPriQuan(e, title, description, price, quantity)}>
-                                {product? 'Update Product' : 'Continue'}
+                            <button className="productForm_Container_button1"type='submit' onClick={(e) => register_vehicle(e, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage)}>
+                                Continue
                             </button>
                             <br></br>
                             <Link to="/dashboard">
@@ -188,79 +201,54 @@ function ProductForm(props) {
                     </form>
 
 
-                {/* </div> */}
-
                 <form id="CatSubTag-form" className="productForm__CatSubTag">
+                <h1 id="header2">Please select the insurance package</h1>
+                    
 
                     <div className="productForm__CatSubTag__options">
-                        <p>Select Category</p>
-                        <select id="status" name="status" className="productForm__CatSubTag__dropdown">
-                            <option value="...">...</option>
-                            <option value="clothing">clothing</option>
-                            <option value="Technology">Technology</option>
-                            <option value="Sports">Sports</option>
-                            <option value="Jewllery">Jewllery</option>
-                            <option value="Housing">Housing</option>
-                            <option value="Vehicle">Vehicle</option>
-                        </select>
-                    </div>
+                    <table>
+                    <thead>
+                        <tr>
+                        <th>Name</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>Tenure</th>
+                        <th>Select</th>
+                        </tr>
+                    </thead>
+                    <tbody>                       
+                        <Product
+                        id="123"
+                        packageName= {'first package'}
+                        packageDescription={'annual'}
+                        packagePrice={5000}
+                        tenure={12}
+                        />
 
-                    <div className="productForm__CatSubTag__options">
-                        <p>Select Sub Category</p>
-                        <select id="status" name="status" className="productForm__CatSubTag__dropdown">
-                            <option value="...">...</option>
-                            <option value="clothing">Mobiles</option>
-                            <option value="Technology">Laptops</option>
-                            <option value="Sports">Tablets</option>
-                            <option value="Jewllery">Smart watches</option>
-                            <option value="Housing">PCs</option>
-                            <option value="Vehicle">Microwaves</option>
-                            <option value="Vehicle">refrigerators</option>
-                        </select>
-                    </div>
+                    </tbody>
+                    </table>
 
-                    <div className="productForm__CatSubTag__Tag">
-                        <p>Special Tags </p>
-                        <AddBoxIcon 
-                            className = "productForm__CatSubTag__Tag__AddBoxIcon" 
-                            onClick={(event) => add_new_Tag_input(event)}/>
-                        <input className="productForm__CatSubTag__Tag__input"></input>
+
+                    {/* { p.map( item => (
+
+                    <Product
+                        id="123"
+                        title= {item.title}
+                        needed_deposit={item.needed_deposit}
+                        // image={item.images[0].img}
+                        image = "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-family-hero?wid=940&amp;hei=1112&amp;fmt=jpeg&amp;qlt=80&amp;.v=1604021663000"
+                        rating={item.avg_ratings}
+                        num_of_ratings = {item.num_of_ratings}
+                        />
+
+                    ) )} */}
+
                     </div>
 
 
                     <button className="productForm_Container_button1"type='submit' onClick={(e) => createupdateProduct_CatSubTag(e, title, description, price, quantity)}>
-                            {product? 'Update Product' : 'Continue'}
+                            submit
                     </button>
-                    <br></br>
-                    <Link to="/dashboard">
-                        <button className="productForm_Container_button1"type='submit' >Cancel</button>
-                    </Link>
-
-                </form>
-
-
-                <form id="Img-form" className="productForm__Img">
-
-                    <div className="productForm__getImage__form__header">
-                        <h4>Product Images</h4>
-                        <button 
-                            type='submit' 
-                            className="signup__getAdrPhone__container__addButton" >
-                            {/* onClick={(event) => add_new_Image_form(event)}> */}
-                                add new image
-                        </button>
-
-                    </div>
-
-                    <div>
-                        <input type="file" id="myfile" name="myfile" />
-                    </div>
-
-                    <Link to="/dashboard">
-                        <button className="productForm_Container_button1"type='submit' onClick={(e) => createupdateProduct_Img(e)}>
-                                {product? 'Update Product' : 'Continue'}
-                        </button>
-                    </Link>
                     <br></br>
                     <Link to="/dashboard">
                         <button className="productForm_Container_button1"type='submit' >Cancel</button>

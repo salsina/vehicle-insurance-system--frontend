@@ -38,7 +38,7 @@ function Login(props) {
     
     const signIn = (event, email, password) => {
         event.preventDefault();
-        const url = `${API_URL}/auth/`;
+        const url = `${API_URL}/login`;
         fetch(url, {
             method: 'POST',
             headers: {
