@@ -77,9 +77,9 @@ function Dashboard() {
                         My insurance
                     </div>
                     
-                    <div onClick={() => setComponentnum(2)}>
+                    {/* <div onClick={() => setComponentnum(2)}>
                         Claim insurance
-                    </div>
+                    </div> */}
 
                 </div>
                 
