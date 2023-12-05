@@ -15,24 +15,23 @@ function Login(props) {
 
     const [state, dispatch] = useStateValue();
 
-    // useEffect( () => {
-    //     console.log(location);
-    //  } )
 
     const handleResponse = async (res) => {
-        if(!res.token){
-            setMassage(res.non_field_errors[0]);
+        if(!res.accessToken){
+            setMassage("No token detected");
         }
         else {
             setMassage('');
             dispatch({
                 type: 'SET_USER',
-                token: res.token
+                token: res.accessToken,
+                refreshToken: res.refreshToken
             });
-            localStorage.setItem('token', res.token);
+            localStorage.setItem('token', res.accessToken);
+            localStorage.setItem('refreshToken', res.refreshToken);
             let user = null;
-            user = await GetUser({...state, token: res.token});
-            user.role == 'company' ? history.push("/dashboard") : history.push("/");
+            // user = await GetUser({...state, token: res.accessToken});
+            history("/dashboard")
         }
     }
     

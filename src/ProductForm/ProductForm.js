@@ -117,7 +117,7 @@ function ProductForm(props) {
         })
         .then(res => handleResponse(res))
         .catch(errors => console.log(errors));
-
+        history("/dashboard")
     }
 
     function get_packages() {
