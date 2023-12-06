@@ -1,8 +1,9 @@
 import React,{useState, useEffect} from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate,withRouter  } from 'react-router-dom';
 import { API_URL } from '../EnviormentVariables';
 import { useStateValue } from '../StateManager/StateProvider';
 import './Signup.css';
+import Swal from 'sweetalert2'
 
 function Signup() {
     var Image_Count = 1;
@@ -85,11 +86,31 @@ function Signup() {
         })
         .then(resp => {
             status = resp.status;
+            message();
+            this.props.history.push("login");
             return resp.json();
         })
         .then(res => handleResponse(res))
         .catch(errors => console.log(errors));
         
+    }
+
+    const message = () =>{
+        const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.onmouseenter = Swal.stopTimer;
+              toast.onmouseleave = Swal.resumeTimer;
+            }
+          });
+          Toast.fire({
+            icon: "success",
+            title: "Sign up successful"
+          });
     }
 
     return (
