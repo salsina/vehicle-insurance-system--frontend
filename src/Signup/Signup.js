@@ -40,23 +40,9 @@ function Signup() {
     }
     
     const handleResponse = res => {
-        if(status === 201) {
-            setMassage('');
-            const url = `${API_URL}/auth/`;
-            fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    'username' : email,
-                    'password':  password
-                })
-            })
-            .then(resp => resp.json())
-            .then(res => setUser(res))
-            .catch(errors => console.log(errors));
-
+        
+        if(status === 200) {
+            message();
         } else 
             setMassage(res.massage);
     }
@@ -86,8 +72,6 @@ function Signup() {
         })
         .then(resp => {
             status = resp.status;
-            message();
-            this.props.history.push("login");
             return resp.json();
         })
         .then(res => handleResponse(res))
@@ -111,6 +95,8 @@ function Signup() {
             icon: "success",
             title: "Sign up successful"
           });
+          history("/login")
+
     }
 
     return (

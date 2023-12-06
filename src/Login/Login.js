@@ -16,7 +16,7 @@ function Login(props) {
     const [state, dispatch] = useStateValue();
 
 
-    const handleResponse = async (res) => {
+    const handleResponse = async (res, email) => {
         if(!res.accessToken){
             setMassage("No token detected");
         }
@@ -29,6 +29,7 @@ function Login(props) {
             });
             localStorage.setItem('token', res.accessToken);
             localStorage.setItem('refreshToken', res.refreshToken);
+            localStorage.setItem('userEmail', email);
             let user = null;
             // user = await GetUser({...state, token: res.accessToken});
             history("/dashboard")
@@ -49,7 +50,7 @@ function Login(props) {
             })
         })
         .then(resp => resp.json())
-        .then(res => handleResponse(res))
+        .then(res => handleResponse(res, email))
         .catch(errors => console.log(errors));
     }
 

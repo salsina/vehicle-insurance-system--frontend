@@ -28,9 +28,11 @@ function ProductForm(props) {
     const [mileage, setMileage] = useState('');
     const [vehicleId, setVehiclestatusId] = useState('');
     const [packageId, setPackageId] = useState('');
+    // const [selected_package, setSelected_package] = useState('');
+    const [selected_package_num, setSelected_package_num] = useState('');
 
     let status = null;
-
+    let selected_package = null;
     let [p, setPackages] = useState([]);
     let packages = [];
 
@@ -54,20 +56,16 @@ function ProductForm(props) {
     // useEffect(() => console.log(selected_categories), [selected_categories])
 
     const handleResponse = (response) => {
-        console.log(response);
-        // if(status === 201 || status === 200) {
-        //     history.push("/dashboard");
-        //     alert(product ? "Product successfully updated!" : "Product successfully created!");
-        // } else {
-        //     history.push("/dashboard");
-        //     alert("Somthing went wrong try again!");
-        // }
+        if (status == 200){
+            get_packages();
+        }
     }
 
     const register_vehicle = (event, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage) => {
         event.preventDefault();
         
         const url = `${API_URL}/register-vehicle`;
+        
         fetch(url, {
             method: 'POST',
             headers: {
@@ -75,7 +73,7 @@ function ProductForm(props) {
                 'Authorization': `Token ${state.token}`
             },
             body: JSON.stringify({
-                'userId' : title,
+                'userEmail': localStorage.getItem("userEmail"),
                 'vehicleName': vehiclename, 
                 'vehicleModel': vehiclemodel,
                 'vehicleType': vehicletype,
@@ -92,7 +90,6 @@ function ProductForm(props) {
         })
         .then(res => handleResponse(res))
         .catch(errors => console.log(errors));
-        get_packages();
     }
 
 
@@ -123,26 +120,31 @@ function ProductForm(props) {
     function get_packages() {
 
 
-        // const url = `${API_URL}/get-packages`;
-        // const loadPackages = async () => { return await Promise.all(
-        //     await fetch(url, {
-        //         method: 'GET',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //             'Authorization': `Token ${state.token}`
-        //         }
-        //     })
-        //     .then(resp => resp.json())
-        //     .then(res => {
-        //         packages = [...packages, res];
-        //     })
-        //     .catch(errors => console.log(errors))
-        // )};
+        const url = `${API_URL}/get-packages`;
+        const loadPackages = async () => { return await Promise.all(
+            await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Token ${state.token}`
+                },
+                body: JSON.stringify({
+                    'userEmail': localStorage.getItem("userEmail"),
+                    'vehicleId': vehicleId, 
+                })
+    
+            })
+            .then(resp => resp.json())
+            .then(res => {
+                packages = [...packages, res];
+            })
+            .catch(errors => console.log(errors))
+        )};
         
-        // loadPackages().then(() => {
-        //     setPackages(packages);
-        //     console.log(packages);
-        // });
+        loadPackages().then(() => {
+            setPackages(packages);
+            console.log(packages);
+        });
 
         document.getElementById("TitDescPriQuan-form").style.display = "none";
         document.getElementById("CatSubTag-form").style.display = "block";
@@ -236,47 +238,49 @@ function ProductForm(props) {
                         {/* <th>Select</th> */}
                         </tr>
                     </thead>
-                    <tbody>                       
-                        <Product
-                        id="123"
-                        packageName= {'first package'}
-                        packageDescription={'annual'}
-                        packagePrice={5000}
-                        tenure={12}
-                        />
+                    <tbody>
+                        {
+                            packages.map((item, index) => (
+                                <Product
+                                id="123"
+                                packageName= {'first package'}
+                                packageDescription={'annual'}
+                                packagePrice={5000}
+                                tenure={12}
+                                />
+                             ))
+                        }                       
 
                     </tbody>
-                    <select>
-                    {/* {myList.map((item, index) => (
-                        <li key={index}>
-                        Iteration {index + 1}: {item}
-                        </li>
-                    ))} */}
-                        <option value="option1">Package 1</option>
+                    <select id="dropdown">
+                        {
+                        packages.map((item, index) => (
+                                <Product
+                                id="123"
+                                packageName= {'first package'}
+                                packageDescription={'annual'}
+                                packagePrice={5000}
+                                tenure={12}
+                                />
+                             ))
+                        }                       
+                       {
+                        packages.map((item, index) => (
+                            <option value={index}>{item.packageName}</option>
+                            ))
+                        }   
                         <option value="option2">Package 2</option>
                         <option value="option3">Package 3</option>
                     </select>
+                    {selected_package = document.getElementById("dropdown")}
+                    {/* {setSelected_package_num(selected_package.value)} */}
                     </table>
 
-
-                    {/* { p.map( item => (
-
-                    <Product
-                        id="123"
-                        title= {item.title}
-                        needed_deposit={item.needed_deposit}
-                        // image={item.images[0].img}
-                        image = "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/iphone-12-pro-family-hero?wid=940&amp;hei=1112&amp;fmt=jpeg&amp;qlt=80&amp;.v=1604021663000"
-                        rating={item.avg_ratings}
-                        num_of_ratings = {item.num_of_ratings}
-                        />
-
-                    ) )} */}
 
                     </div>
 
 
-                    <button className="productForm_Container_button1"type='submit' onClick={(e) => subscribe_package(e, vehicleId, packageId)}>
+                    <button className="productForm_Container_button1"type='submit' onClick={(e) => subscribe_package(e, vehicleId, packages[selected_package_num-1].packageId)}>
                             submit
                     </button>
                     <br></br>
