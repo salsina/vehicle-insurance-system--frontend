@@ -69,8 +69,9 @@ function ProductForm(props) {
         fetch(url, {
             method: 'POST',
             headers: {
+                'accept': "/",
                 'Content-Type': 'application/json',
-                'Authorization': `Token ${state.token}`
+                'Authorization': `Bearer ${localStorage.getItem("token")}`,
             },
             body: JSON.stringify({
                 'userEmail': localStorage.getItem("userEmail"),
@@ -240,39 +241,39 @@ function ProductForm(props) {
                     </thead>
                     <tbody>
                         {
-                            packages.map((item, index) => (
-                                <Product
-                                id="123"
-                                packageName= {'first package'}
-                                packageDescription={'annual'}
-                                packagePrice={5000}
-                                tenure={12}
-                                />
-                             ))
+                            // packages.map((item, index) => (
+                            //     <Product
+                            //     id="123"
+                            //     packageName= {'first package'}
+                            //     packageDescription={'annual'}
+                            //     packagePrice={5000}
+                            //     tenure={12}
+                            //     />
+                            //  ))
                         }                       
 
                     </tbody>
                     <select id="dropdown">
                         {
-                        packages.map((item, index) => (
-                                <Product
-                                id="123"
-                                packageName= {'first package'}
-                                packageDescription={'annual'}
-                                packagePrice={5000}
-                                tenure={12}
-                                />
-                             ))
+                        // packages.map((item, index) => (
+                        //         <Product
+                        //         id="123"
+                        //         packageName= {'first package'}
+                        //         packageDescription={'annual'}
+                        //         packagePrice={5000}
+                        //         tenure={12}
+                        //         />
+                        //      ))
                         }                       
                        {
-                        packages.map((item, index) => (
-                            <option value={index}>{item.packageName}</option>
-                            ))
+                        // packages.map((item, index) => (
+                        //     <option value={index}>{item.packageName}</option>
+                        //     ))
                         }   
                         <option value="option2">Package 2</option>
                         <option value="option3">Package 3</option>
                     </select>
-                    {selected_package = document.getElementById("dropdown")}
+                    {/* {selected_package = document.getElementById("dropdown")} */}
                     {/* {setSelected_package_num(selected_package.value)} */}
                     </table>
 

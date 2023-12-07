@@ -3,6 +3,7 @@ import { useStateValue } from '../StateManager/StateProvider';
 import { GetUser } from '../App';
 import './Dashboard_MyAccount.css';
 import EditSharpIcon from '@material-ui/icons/EditSharp';
+import { API_URL } from '../EnviormentVariables';
 
 function Dashboard_MyAccount() {
 
@@ -10,12 +11,44 @@ function Dashboard_MyAccount() {
     const [password, setPassword] = useState('');
     const [cpassword, setCpassword] = useState('');
     const [CurrPassword, setCurrPassword] = useState('');
+    let status = null;
+    let user = null;
+
+    const handleResponse = (response) => {
+        if (status == 200){
+            user = response;
+            // get_packages();
+            // user = response.
+        }
+    }
+
     useEffect( async () => {
-        const user = await GetUser(state);
-        dispatch({
-            type: 'SET_USER_INFO',
-            user: user
-        });
+        // const user = await GetUser(state);
+        // dispatch({
+        //     type: 'SET_USER_INFO',
+        //     user: user
+        // });
+
+        const url = `${API_URL}/get-user`;
+        
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'accept': "/",
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem("token")}`,
+            },
+            body: JSON.stringify({
+                'email': localStorage.getItem("userEmail")
+            })
+        })
+        .then(resp => {
+            status = resp.status;
+            return resp.json();
+        })
+        .then(res => handleResponse(res))
+        .catch(errors => console.log(errors));
+
     }, [])
 
     function openPhoneForm() {
@@ -65,8 +98,8 @@ function Dashboard_MyAccount() {
     return (
         <div className="dashboard_MyAccount">
             <div className="dashboard_MyAccount_infoLine">
-                <span className="dashboard_MyAccount_item">Username </span>
-                <div className="dashboard_MyAccount_input"> {state.user? state.user.name : '-----'} </div>
+                <span className="dashboard_MyAccount_item">Name </span>
+                <div className="dashboard_MyAccount_input"> {user? user.name : '-----'} </div>
                 <span className="dashboard_MyAccount_infoLine_change"></span>
                 
                 <span className="dashboard_MyAccount_item">Email </span>
