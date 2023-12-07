@@ -64,33 +64,71 @@ function ProductForm(props) {
     const register_vehicle = (event, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage) => {
         event.preventDefault();
         
-        const url = `${API_URL}/register-vehicle`;
-        
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'accept': "/",
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem("token")}`,
-            },
-            body: JSON.stringify({
-                'userEmail': localStorage.getItem("userEmail"),
-                'vehicleName': vehiclename, 
-                'vehicleModel': vehiclemodel,
-                'vehicleType': vehicletype,
-                'licenseNumber': licensenumber,
-                'registerationNumber': registrationnumber,
-                'purchaseDate': purchasedate,
-                'vehicleStatus': vehiclestatus,
-                'mileage': mileage
-            })
-        })
-        .then(resp => {
-            status = resp.status;
-            return resp.json();
-        })
-        .then(res => handleResponse(res))
-        .catch(errors => console.log(errors));
+        // const url = `${API_URL}/register-vehicle`;
+        //
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'accept': "/",
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Bearer ${localStorage.getItem("token")}`,
+        //     },
+        //     body: JSON.stringify({
+        //         'userEmail': localStorage.getItem("userEmail"),
+        //         'vehicleName': vehiclename,
+        //         'vehicleModel': vehiclemodel,
+        //         'vehicleType': vehicletype,
+        //         'licenseNumber': licensenumber,
+        //         'registerationNumber': registrationnumber,
+        //         'purchaseDate': purchasedate,
+        //         'vehicleStatus': vehiclestatus,
+        //         'mileage': mileage
+        //     })
+        // })
+        // .then(async resp => {
+        //     status = resp.status;
+        //     await console.log(resp.json());
+        //     return resp.json();
+        // })
+        // .then(res => handleResponse(res))
+        // .catch(errors => console.log(errors));
+        const fetchData = async () => {
+            const url = `${API_URL}/register-vehicle`;
+            const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST', // or 'POST', 'PUT', 'DELETE', etc.
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Using Bearer token, but adjust if using a different scheme
+                    },
+                        body: JSON.stringify({
+                            'userEmail': localStorage.getItem("userEmail"),
+                            'vehicleName': vehiclename,
+                            'vehicleModel': vehiclemodel,
+                            'vehicleType': vehicletype,
+                            'licenseNumber': licensenumber,
+                            'registerationNumber': registrationnumber,
+                            'purchaseDate': purchasedate,
+                            'vehicleStatus': vehiclestatus,
+                            'mileage': mileage
+                        })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log(data);
+                // Handle the data...
+            } catch (error) {
+                console.error('Fetch error:', error);
+                // Handle the error...
+            }
+        };
+        fetchData();
     }
 
 
