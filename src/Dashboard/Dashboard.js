@@ -65,7 +65,7 @@ function Dashboard() {
 
                 <Header_dashboard User={user}/>
 
-                {componentnum === 1 ? (<Dashboard_Inventory  products = {packages}/>) : null}
+                {componentnum === 1 ? (<Dashboard_Inventory  subscriptions = {packages}/>) : null}
 
                 {componentnum === 2 ? (<Dashboard_Orders />) : null}
 

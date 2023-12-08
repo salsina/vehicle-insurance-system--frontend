@@ -4,14 +4,12 @@ import Product_dashboard from '../Products/Product_dashboard';
 import './Dashboard_Inventory.css';
 import {GetUser} from "../App";
 import {useStateValue} from "../StateManager/StateProvider";
-function Dashboard_Inventory(props) {
+function Dashboard_Inventory({subscriptions}) {
     const [state, dispatch] = useStateValue();
 
-    const [subscriptions, setSubscriptions] = useState(null);
 
     useEffect( () => {
         let temp = GetUser(state);
-        setSubscriptions(temp['subscribedPackages'])
     }, [])
 
 
