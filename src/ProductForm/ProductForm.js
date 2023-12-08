@@ -257,7 +257,7 @@ function ProductForm(props) {
 
                     <label htmlFor="dropdown">Select a Package:  </label>
                     <select id="dropdown" onChange={handlePackageSelect} value={selectedPackageNum || ''}>
-                        <option value="" disabled>--</option>
+                        <option value="" disabled>Please Select</option>
                         {packages?.map((item, index) => (
                         <option key={item.id} value={index}>
                             {item.packageName}

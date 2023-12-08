@@ -46,7 +46,7 @@ function Dashboard() {
                 <div className="dashboard__left__operations">
 
                     <div onClick={() => setComponentnum(1)}>
-                        My insurance
+                        My Insurance
                     </div>
                     
                 </div>
