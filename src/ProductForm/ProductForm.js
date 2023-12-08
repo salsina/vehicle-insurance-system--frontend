@@ -45,7 +45,7 @@ function ProductForm(props) {
 
     const register_vehicle = (event, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage) => {
         event.preventDefault();
-
+        
         const fetchData = async () => {
             const url = `${API_URL}/register-vehicle`;
             const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
@@ -63,7 +63,7 @@ function ProductForm(props) {
                             'vehicleModel': vehiclemodel,
                             'vehicleType': vehicletype,
                             'licenseNumber': licensenumber,
-                            'registerationNumber': registrationnumber,
+                            'vehicleRegisterationNumber': registrationnumber,
                             'purchaseDate': purchasedate,
                             'vehicleStatus': vehiclestatus,
                             'mileage': mileage
@@ -76,7 +76,6 @@ function ProductForm(props) {
 
                 const data = await response.json();
                 console.log(data);
-                get_packages();
                 // Handle the data...
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -85,7 +84,6 @@ function ProductForm(props) {
         };
         fetchData();
     }
-
 
     const subscribe_package = (event, vehicleId, packageId) => {
         event.preventDefault();
