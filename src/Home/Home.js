@@ -7,15 +7,6 @@ import Header from '../Header/Header'
 
 function Home() {
     const [state, dispatch] = useStateValue()
-    let user;
-
-    // useEffect( async () => {
-    //     user = await GetUser(state);
-    //     await dispatch({
-    //         type: 'SET_USER_INFO',
-    //         user: user
-    //     });
-    // }, [] )
     
     return (
         <div className="home">

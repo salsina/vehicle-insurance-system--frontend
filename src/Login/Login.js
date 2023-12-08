@@ -3,7 +3,6 @@ import './Login.css'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useStateValue } from '../StateManager/StateProvider';
 import { API_URL } from '../EnviormentVariables';
-import { GetUser } from '../App';
 
 function Login(props) {
 
@@ -31,7 +30,6 @@ function Login(props) {
             localStorage.setItem('refreshToken', res.refreshToken);
             localStorage.setItem('userEmail', email);
             let user = null;
-            // user = await GetUser({...state, token: res.accessToken});
             history("/dashboard")
         }
     }

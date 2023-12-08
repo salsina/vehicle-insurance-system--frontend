@@ -9,11 +9,7 @@ import Product_dashboard from "../Products/Product_dashboard";
 function Dashboard_MyAccount() {
 
     const [state, dispatch] = useStateValue();
-    const [password, setPassword] = useState('');
-    const [cpassword, setCpassword] = useState('');
-    const [CurrPassword, setCurrPassword] = useState('');
     const [user, setUser] = useState(null);
-    let status = null;
 
     useEffect(() => {
         const fetchData = async () => {

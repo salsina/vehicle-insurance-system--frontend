@@ -21,16 +21,11 @@ function ProductForm(props) {
     const [purchasedate, setPurchasedate] = useState('');
     const [vehiclestatus, setVehiclestatus] = useState('');
     const [mileage, setMileage] = useState('');
-    const [vehicleId, setVehiclestatusId] = useState('');
-    const [packageId, setPackageId] = useState('');
-    const [selected_package_num, setSelected_package_num] = useState('');
     const [latestVehicleId, setLatestVehicleId] = useState('');
 
     
     let status = null;
     let [packages, setPackages] = useState([]);
-
-
 
     const register_vehicle = (event, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage) => {
         event.preventDefault();
@@ -222,7 +217,6 @@ function ProductForm(props) {
                             value={mileage} 
                             onChange={(e) => setMileage(e.target.value)}
                         />
-                        {/* <div className = "buttuns"> */}
                             <button className="productForm_Container_button1"type='submit' onClick={(e) => register_vehicle(e, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage)}>
                                 Continue
                             </button>
@@ -230,7 +224,6 @@ function ProductForm(props) {
                             <Link to="/dashboard">
                                 <button className="productForm_Container_button1"type='submit' >Cancel</button>
                             </Link>
-                        {/* </div> */}
                     </form>
 
 

@@ -3,10 +3,6 @@
     flex-direction: column;
     align-items: center;
     background-color:white;
-
-    /* background: -webkit-linear-gradient(-90deg, rgba(1,41,66,1) 0, rgba(255,255,255,1) 100%);
-    background: -moz-linear-gradient(180deg, rgba(1,41,66,1) 0, rgba(255,255,255,1) 100%);
-    background: linear-gradient(180deg, rgba(1,41,66,1) 0, rgba(255,255,255,1) 100%); */
     background-position: 50% 50%;
 }
 
@@ -159,8 +155,6 @@
 .signup__getAdrPhone__form{
     display: flex;
     flex-direction: row;
-    /* border-bottom: 1px solid rgb(102, 102, 102);
-    border-bottom-width: 1px;  */
 
 }
 
@@ -314,7 +308,6 @@
     font-size: 14px;
     font-weight: 100;
     padding: 2px;
-    /* background-color: rgba(0, 0, 0, 0.93); */
     border: solid #105082 1px;
     text-decoration: none;
     display: inline-block;

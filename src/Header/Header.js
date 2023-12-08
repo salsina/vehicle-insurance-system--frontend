@@ -9,27 +9,6 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 function Header() {
 
-    const [state, dispatch] = useStateValue();
-
-    // useEffect( async () => {
-    //     const user = await GetUser(state);
-    //     dispatch({
-    //         type: 'SET_USER_INFO',
-    //         user: user
-    //     });
-    // }, [])
-
-    const logout = () => {
-        dispatch({
-            type: 'SET_USER',
-            token: null
-        });
-        dispatch({
-            type: 'SET_USER_INFO',
-            user: null
-        });
-        localStorage.removeItem('token');
-    }
 
     return (
         <div className="header">
@@ -46,29 +25,11 @@ function Header() {
 
             <div className="header__nav">
                 
-                {state.user ? (
-                    <div className="header__option">
-
-                        <div class="dropdown">
-
-                            <div className="dropbtn"><AccountCircleIcon/></div>
-                            <div class="dropdown-content">
-                                <span className="header__optionLineTwo">Hi {state.user.name? state.user.name : state.user.title}! </span>
-                                <a href="/dashboard">Profile</a>
-                                <button className="header__option__button" onClick={logout}>Sign out</button>
-                            </div>
-
-                        </div>
-                        </div>
-
-                    )
-
-                :   (<Link to="/login">
+                <Link to="/login">
                         <div className="header__option">
                         <span className="header__optionLineTwo"> Sign in </span>
                         </div>
-                    </Link>)
-                }   
+                </Link>
 
             </div>
         </div>

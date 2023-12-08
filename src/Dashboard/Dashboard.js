@@ -5,7 +5,6 @@ import { GetUser } from '../App';
 import { Link, useNavigate } from 'react-router-dom';
 import Header_dashboard from '../Header/Header_dashboard';
 import Dashboard_Inventory from './Dashboard_Inventory';
-import Dashboard_Orders from './Dashboard_Orders';
 import Dashboard_MyAccount from './Dashboard_MyAccount';
 
 function Dashboard() {
@@ -66,8 +65,6 @@ function Dashboard() {
                 <Header_dashboard User={user}/>
 
                 {componentnum === 1 ? (<Dashboard_Inventory  subscriptions = {packages}/>) : null}
-
-                {componentnum === 2 ? (<Dashboard_Orders />) : null}
 
                 {componentnum === 3 ? (<Dashboard_MyAccount />) : null}
 

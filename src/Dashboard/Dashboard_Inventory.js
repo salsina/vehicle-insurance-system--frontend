@@ -2,16 +2,8 @@ import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 import Product_dashboard from '../Products/Product_dashboard';
 import './Dashboard_Inventory.css';
-import {GetUser} from "../App";
-import {useStateValue} from "../StateManager/StateProvider";
 
 function Dashboard_Inventory({subscriptions}) {
-    const [state, dispatch] = useStateValue();
-
-
-    useEffect( () => {
-        let temp = GetUser(state);
-    }, [])
 
 
     return (
@@ -19,7 +11,7 @@ function Dashboard_Inventory({subscriptions}) {
             <div className="dashboard-inventory">
                 <div className="dashboard-inventory-header">
                     <h2>My Insurance Packages</h2>
-                    <Link to="/dashboard/product">
+                    <Link to="/dashboard/package">
                     <button className="dashboard-inventory-header__request-btn">
                         Request Insurance Package
                     </button>

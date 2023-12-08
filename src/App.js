@@ -8,7 +8,6 @@ import Dashboard from './Dashboard/Dashboard';
 import ProductForm from './ProductForm/ProductForm';
 import { useStateValue } from './StateManager/StateProvider';
 import { API_URL } from './EnviormentVariables';
-import Profile from './Profile/Profile';
 
 
 function App() {
@@ -26,10 +25,8 @@ function App() {
 
             <Route exact path="/dashboard" element={<Dashboard/>} />
 
-            <Route exact path="/dashboard/product" element={<ProductForm/>} />
+            <Route exact path="/dashboard/package" element={<ProductForm/>} />
             
-            <Route exact path="/profile" element={<Profile/>} />  
-
           </Routes>
 
         </div>
@@ -44,14 +41,14 @@ export default App;
 const GetUser = async (state) => {  
   let return_obj = state.user;
     const url = `${API_URL}/get-user`;
-    const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
+    const token = localStorage.getItem("token"); 
 
     try {
         const response = await fetch(url, {
-            method: 'POST', // or 'POST', 'PUT', 'DELETE', etc.
+            method: 'POST', 
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Using Bearer token, but adjust if using a different scheme
+                'Authorization': `Bearer ${token}` 
             },
             body: JSON.stringify({
                 'email': localStorage.getItem("userEmail")
@@ -65,10 +62,8 @@ const GetUser = async (state) => {
         const data = await response.json();
         return_obj = data;
         console.log(data);
-        // Handle the data...
     } catch (error) {
         console.error('Fetch error:', error);
-        // Handle the error...
     }
   return return_obj;
 }

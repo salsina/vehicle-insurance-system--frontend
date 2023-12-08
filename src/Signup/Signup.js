@@ -6,7 +6,6 @@ import './Signup.css';
 import Swal from 'sweetalert2'
 
 function Signup() {
-    var Image_Count = 1;
     const history = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -22,22 +21,6 @@ function Signup() {
     const [massage, setMassage] = useState('');
     let status = null;
 
-    const [state, dispatch] = useStateValue();
-
-    //useEffect(() => console.log(status), [status])
-    
-    const setUser = (res) => {
-        if(!res.token)
-            setMassage(res.non_field_errors[0]);
-        else {
-            setMassage('');
-            dispatch({
-                type: 'SET_USER',
-                token: res.token
-            });
-            localStorage.setItem('token', res.token);
-        }
-    }
     
     const handleResponse = res => {
         
