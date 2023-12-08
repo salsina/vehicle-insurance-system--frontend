@@ -11,52 +11,22 @@ import Dashboard_MyAccount from './Dashboard_MyAccount';
 function Dashboard() {
     const history = useNavigate();
     const [state, dispatch] = useStateValue();
-    let user;
+    const [user, setUser] = useState(null);
+
     let products = [];
     let [p, setProducts] = useState([]);
     const [componentnum, setComponentnum] = useState(1);
 
-    // useEffect( async () => {
-    //     user = await GetUser(state);
-    //     await dispatch({
-    //         type: 'SET_USER_INFO',
-    //         user: user
-    //     });
 
-    //     if(user?.role != 'company') {
-    //         history.push({
-    //             pathname: "/login",
-    //             state: {massage: 'You have to login to your company account first!'}
-    //         })
-    //         return;
-    //     }
+    useEffect(() => {
+        const fetchData = async () => {
+            let temp = await GetUser(state);
+            setUser(temp);
+        };
 
-    //     const loadProducts = async () => { return await Promise.all(
-    //         user.products.map( async item => {
-    //             await fetch(item, {
-    //                 method: 'GET',
-    //                 headers: {
-    //                     'Content-Type': 'application/json',
-    //                     'Authorization': `Token ${state.token}`
-    //                 },
-    //             })
-    //             .then(resp => resp.json())
-    //             .then(res => {
-    //                 // console.log('current list: ', products)
-    //                 // console.log('new item: ', res);
-    //                 products = [...products, res];
-    //                 // console.log('updated list: ', products);
-    //             })
-    //             .catch(errors => console.log(errors));
-    //         })
-    //     )};
+        fetchData();
+    }, [state]);
 
-    //     loadProducts().then(() => {
-    //         setProducts(products);
-    //         console.log(products);
-    //     });
-    // }, [] )
-    
     return (
         <div className="dashboard">
             <div className="dashboard__left">

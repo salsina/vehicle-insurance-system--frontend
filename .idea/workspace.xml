@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f6283410-b4c2-4950-828a-5d4248656c79" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Dashboard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Dashboard_Inventory.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Dashboard_Inventory.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Dashboard_Inventory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Dashboard_Inventory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Dashboard_MyAccount.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Dashboard_MyAccount.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Dashboard/Dashboard_MyAccount.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Dashboard/Dashboard_MyAccount.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ProductForm/ProductForm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ProductForm/ProductForm.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Products/Product_dashboard.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Products/Product_dashboard.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Products/Product_dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Products/Product_dashboard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,7 +82,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1701985318087</updated>
-      <workItem from="1701985320453" duration="2687000" />
+      <workItem from="1701985320453" duration="12112000" />
     </task>
     <servers />
   </component>

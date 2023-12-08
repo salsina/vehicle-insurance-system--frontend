@@ -1,41 +1,48 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
 import Product_dashboard from '../Products/Product_dashboard';
 import './Dashboard_Inventory.css';
+import {GetUser} from "../App";
+import {useStateValue} from "../StateManager/StateProvider";
 function Dashboard_Inventory(props) {
+    const [state, dispatch] = useStateValue();
+
+    const [subscriptions, setSubscriptions] = useState(null);
+
+    useEffect( () => {
+        let temp = GetUser(state);
+        setSubscriptions(temp['subscribedPackages'])
+    }, [])
+
+
     return (
-        <div className="dashboard_inventory">
-            <div className="dashboard_inventory_header">
-                <p>My insurance package</p>
+        <div className="dashboard-inventory">
+            <div className="dashboard-inventory-header">
+                <h2>My Insurance Packages</h2>
                 <Link to="/dashboard/product">
-                    <button 
-                        type= 'submit'
-                        className="dashboard_inventory_header__addProduct" >
-                        {/* onClick={(event) => signup(event, username, email, password, role)} > */}
-                            Request insurance package
+                    <button className="dashboard-inventory-header__request-btn">
+                        Request Insurance Package
                     </button>
                 </Link>
             </div>
 
-            <div className="dashboard_inventory_names">
-                <span>Title</span> 
-                <span>Car</span> 
+            <div className="dashboard-inventory-names">
+                <span>Name</span>
+                <span>Description</span>
                 <span>Price</span>
-                <span>Expiration data</span> 
-
+                <span>Tenure</span>
             </div>
 
-            <div className="dashboard_inventory_products">
-                { props.products.map( item => (
-                    <div className="dashboard__item" key={item.id}>
-                        <Product_dashboard item = {item}/>
+            <div className="dashboard-inventory-products">
+                {subscriptions?.map(item => (
+                    <div className="dashboard-item" key={item.id}>
+                        <Product_dashboard item={item} />
                     </div>
-                ) )}
-
+                ))}
             </div>
-            
         </div>
-    )
+    );
+
 }
 
 export default Dashboard_Inventory

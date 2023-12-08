@@ -43,21 +43,33 @@ export default App;
 
 const GetUser = async (state) => {  
   let return_obj = state.user;
-  if(state.token != null /*&& state.user === null*/) {
-    const url = `${API_URL}/api/getuser/`;
-    await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Token ${state.token}`
+    const url = `${API_URL}/get-user`;
+    const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
+
+    try {
+        const response = await fetch(url, {
+            method: 'POST', // or 'POST', 'PUT', 'DELETE', etc.
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}` // Using Bearer token, but adjust if using a different scheme
+            },
+            body: JSON.stringify({
+                'email': localStorage.getItem("userEmail")
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
         }
-    })
-    .then(resp => resp.json())
-    .then(res => {
-      return_obj = res;
-    })
-    .catch(errors => console.log(errors));
-  }
+
+        const data = await response.json();
+        return_obj = data;
+        console.log(data);
+        // Handle the data...
+    } catch (error) {
+        console.error('Fetch error:', error);
+        // Handle the error...
+    }
   return return_obj;
 }
 

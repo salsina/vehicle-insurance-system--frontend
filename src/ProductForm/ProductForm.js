@@ -36,24 +36,6 @@ function ProductForm(props) {
     let [p, setPackages] = useState([]);
     let packages = [];
 
-    // useEffect( async () => {
-        // user = await GetUser(state);
-        // dispatch({
-        //     type: 'SET_USER_INFO',
-        //     user: user
-        // });
-
-        // if(user?.role != 'company') {
-        //     history.push({
-        //         pathname: "/login",
-        //         state: {massage: 'You have to login to your company account first!'}
-        //     })
-        // }
-
-    // }, [])
-    
-    // useEffect(() => console.log(categories), [categories])
-    // useEffect(() => console.log(selected_categories), [selected_categories])
 
     const handleResponse = (response) => {
         if (status == 200){
@@ -63,35 +45,7 @@ function ProductForm(props) {
 
     const register_vehicle = (event, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage) => {
         event.preventDefault();
-        
-        // const url = `${API_URL}/register-vehicle`;
-        //
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'accept': "/",
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Bearer ${localStorage.getItem("token")}`,
-        //     },
-        //     body: JSON.stringify({
-        //         'userEmail': localStorage.getItem("userEmail"),
-        //         'vehicleName': vehiclename,
-        //         'vehicleModel': vehiclemodel,
-        //         'vehicleType': vehicletype,
-        //         'licenseNumber': licensenumber,
-        //         'registerationNumber': registrationnumber,
-        //         'purchaseDate': purchasedate,
-        //         'vehicleStatus': vehiclestatus,
-        //         'mileage': mileage
-        //     })
-        // })
-        // .then(async resp => {
-        //     status = resp.status;
-        //     await console.log(resp.json());
-        //     return resp.json();
-        // })
-        // .then(res => handleResponse(res))
-        // .catch(errors => console.log(errors));
+
         const fetchData = async () => {
             const url = `${API_URL}/register-vehicle`;
             const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
@@ -122,6 +76,7 @@ function ProductForm(props) {
 
                 const data = await response.json();
                 console.log(data);
+                get_packages();
                 // Handle the data...
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -156,10 +111,12 @@ function ProductForm(props) {
         history("/dashboard")
     }
 
-    function get_packages() {
+    async function get_packages() {
 
 
         const url = `${API_URL}/get-packages`;
+        let temp = await GetUser(state);
+        let latestVehicleId = temp.vehicles.at(-1)['id'];
         const loadPackages = async () => { return await Promise.all(
             await fetch(url, {
                 method: 'POST',
@@ -169,21 +126,18 @@ function ProductForm(props) {
                 },
                 body: JSON.stringify({
                     'userEmail': localStorage.getItem("userEmail"),
-                    'vehicleId': vehicleId, 
+                    'vehicleId': latestVehicleId,
                 })
     
             })
             .then(resp => resp.json())
             .then(res => {
-                packages = [...packages, res];
+                setPackages(res);
+                console.log(res);
             })
             .catch(errors => console.log(errors))
         )};
-        
-        loadPackages().then(() => {
-            setPackages(packages);
-            console.log(packages);
-        });
+        loadPackages();
 
         document.getElementById("TitDescPriQuan-form").style.display = "none";
         document.getElementById("CatSubTag-form").style.display = "block";
@@ -279,35 +233,35 @@ function ProductForm(props) {
                     </thead>
                     <tbody>
                         {
-                            // packages.map((item, index) => (
-                            //     <Product
-                            //     id="123"
-                            //     packageName= {'first package'}
-                            //     packageDescription={'annual'}
-                            //     packagePrice={5000}
-                            //     tenure={12}
-                            //     />
-                            //  ))
-                        }                       
+                            packages?.map((item, index) => (
+                                <Product
+                                id="123"
+                                packageName= {'first package'}
+                                packageDescription={'annual'}
+                                packagePrice={5000}
+                                tenure={12}
+                                />
+                             ))
+                        }
 
                     </tbody>
                     <select id="dropdown">
                         {
-                        // packages.map((item, index) => (
-                        //         <Product
-                        //         id="123"
-                        //         packageName= {'first package'}
-                        //         packageDescription={'annual'}
-                        //         packagePrice={5000}
-                        //         tenure={12}
-                        //         />
-                        //      ))
-                        }                       
+                        packages?.map((item, index) => (
+                                <Product
+                                id="123"
+                                packageName= {'first package'}
+                                packageDescription={'annual'}
+                                packagePrice={5000}
+                                tenure={12}
+                                />
+                             ))
+                        }
                        {
-                        // packages.map((item, index) => (
-                        //     <option value={index}>{item.packageName}</option>
-                        //     ))
-                        }   
+                        packages?.map((item, index) => (
+                            <option value={index}>{item.packageName}</option>
+                            ))
+                        }
                         <option value="option2">Package 2</option>
                         <option value="option3">Package 3</option>
                     </select>
