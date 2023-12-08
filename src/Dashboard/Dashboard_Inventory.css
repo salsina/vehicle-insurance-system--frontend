@@ -1,61 +1,85 @@
 
-
 .dashboard-inventory {
+    background-color: #f8f8f8;
     padding: 20px;
-    background-color: #f4f4f4;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.dashboard-inventory-header {
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dashboard-inventory-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-}
-
-.dashboard-inventory-header h2 {
-    color: #333;
-}
-
-.dashboard-inventory-header__request-btn {
+  }
+  
+  .dashboard-inventory-header h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .dashboard-inventory-header__request-btn {
+    background-color: #409adb;
+    color: #fff;
     padding: 10px 20px;
-    background-color: #007bff;
-    color: white;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.dashboard-inventory-header__request-btn:hover {
-    background-color: #0056b3;
-}
-
-.dashboard-inventory-names {
-    display: grid;
+    font-size: 14px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+  }
+  
+  .dashboard-inventory-header__request-btn:hover {
+    background-color: #2980b9;
+  }
+  
+  .dashboard-inventory-names {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     grid-template-columns: repeat(4, 1fr);
-    text-align: center;
-    background-color: #e8e8e8;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 15px;
-}
-
-.dashboard-inventory-names span {
+    background-color: #032b47;
+    color: #fff;
     font-weight: bold;
-    color: #333;
-}
+    border-radius: 5px 5px 0 0;
+    height: 40px;
+    padding: 0 20px;
+  }
+  .item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+  }
+  .action {
+    width: 130px;
+  }
+  
+  .dashboard-inventory-names span {
+    text-align: center;
+  }
+  
+  .dashboard-inventory-products {
+    display: flex;
+    flex-direction: column;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  }
+  
 
-.dashboard-inventory-products {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 15px;
-}
-
-.dashboard-item {
+  .dashboard-item {
+    display: flex;
     background-color: #fff;
-    padding: 15px;
+    border: 1px solid #ddd;
     border-radius: 5px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+    width: 100%; /* Ensure each item takes up the full width */
+    margin-bottom: 20px; /* Add margin for spacing between items */
+  }
+  
+  .dashboard-item:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  

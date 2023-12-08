@@ -18,6 +18,9 @@ function Header_dashboard() {
             user: null
         });
         localStorage.removeItem('token');
+        localStorage.removeItem('refreshToken');
+        localStorage.removeItem('userEmail');
+
     }
     
     return (

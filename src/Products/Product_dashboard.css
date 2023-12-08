@@ -23,28 +23,33 @@
 /*}*/
 
 .product-card {
+    display: flex;
+    align-items: center;
+    flex: 1;
     background-color: #ffffff;
-    padding: 15px;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin: 10px;
+    padding: 20px;
 }
 
 .product-title {
+    flex: 1;
     color: #333333;
     margin-bottom: 10px;
 }
 
 .product-description {
+    flex: 1;
     color: #666666;
     font-size: 14px;
     margin-bottom: 15px;
 }
 
 .product-info {
+    flex: 1;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     margin-bottom: 5px;
 }
 
@@ -56,3 +61,34 @@
 .info-value {
     color: #007bff;
 }
+
+.claim-insurance-btn {
+    width: 130px;
+    height: 45px;
+    background-color: #27ae60;
+    color: #fff;
+    border: none;
+    padding: 3px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  
+  .claim-insurance-btn:hover {
+    background-color: #219653;
+  }
+
+  .claim-insurance-btn-red {
+    width: 130px;
+    height: 45px;
+    background-color: #ae2727;
+    color: #fff;
+    border: none;
+    padding: 3px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.3s;
+  }
+  

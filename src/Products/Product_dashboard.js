@@ -1,89 +1,87 @@
-// import React from 'react'
-// import './Product_dashboard.css';
-// import EditSharpIcon from '@material-ui/icons/EditSharp';
-// import DeleteOutlineSharpIcon from '@material-ui/icons/DeleteOutlineSharp';
-// import { useNavigate } from 'react-router-dom';
-// import { API_URL } from '../EnviormentVariables';
-// import { useStateValue } from '../StateManager/StateProvider';
-//
-// function Product_dashboard(props) {
-//     const history = useNavigate();
-//     const [state, dispatch] = useStateValue();
-//     let status = null;
-//
-//     const handleResponse = (response) => {
-//         console.log(response);
-//         if(status === 204) {
-//             window.location.reload();
-//             alert("Product successfully deleted!");
-//         } else {
-//             window.location.reload();
-//             alert("Somthing went wrong try again!");
-//         }
-//     }
-//
-//     const deleteProduct = (event, item) => {
-//         event.preventDefault();
-//
-//         const url = `${API_URL}/api/product/${item.id}/`;
-//         fetch(url, {
-//             method: 'DELETE',
-//             headers: {
-//                 'Authorization': `Token ${state.token}`
-//             }
-//         })
-//         .then(resp => {
-//             status = resp.status;
-//             handleResponse(resp);
-//         })
-//         // .then(res => )
-//         .catch(errors => console.log(errors));
-//     }
-//
-//     return (
-//         <div className="product__dashboard">
-//             <p><span>{props.item.title}</span></p>
-//             {/* <p><span>Description: {props.item.description}</span></p> */}
-//             <p><span>{props.item.category}</span></p>
-//
-//             <p><span> {props.item.needed_deposit}</span></p>
-//             {/* <p><span>avg_rating: {props.item.avg_ratings}</span></p>
-//             <p><span>number_of_rating: {props.item.number_of_ratings}</span></p> */}
-//             <p><span> {props.item.quantity}</span></p>
-//             {/* <br /> */}
-//             <EditSharpIcon className="product__dashboard__edit" onClick={ () => {
-//                 history.push({
-//                     pathname: "/dashboard/product",
-//                     state: {product: props.item}
-//                 })}
-//             }/>
-//             <DeleteOutlineSharpIcon
-//                 className="product__dashboard__delete"
-//                 onClick={event => deleteProduct(event, props.item)}
-//             />
-//         </div>
-//     )
-// }
-//
-// export default Product_dashboard
-
 import React from 'react';
 import './Product_dashboard.css'; // Assuming you have a CSS file for styling
+import { API_URL } from '../EnviormentVariables';
+import { useNavigate } from 'react-router-dom';
+import Swal from 'sweetalert2';
+import { useStateValue } from '../StateManager/StateProvider';
+
 
 const Product_dashboard = ({ item }) => {
+    const history = useNavigate();
+  const { packageName, packageDescription, packagePrice, tenure } = item;
+
+    const handleClaimInsurance = (event) => {
+        event.preventDefault();
+
+        const claim = async () => {
+            const url = `${API_URL}/claim-insurance`;
+
+            const token = localStorage.getItem("token"); 
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({
+                        'userEmail': localStorage.getItem("userEmail"),
+                        'subscriptionId': item.id, 
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log(data);
+
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Claim Successful',
+                    text: 'Your insurance claim has been processed successfully!',
+                  });
+                  window.location.reload();
+
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Claim Failed',
+                    text: 'There was an error processing your insurance claim. Please try again.',
+                  });
+            }
+        };
+
+        claim();
+
+      };
+
     return (
         <div className="product-card">
             <h3 className="product-title">{item.packageName}</h3>
             <p className="product-description">{item.packageDescription}</p>
             <div className="product-info">
-                <span className="info-label">Price:</span>
+                <span className="info-label"></span>
                 <span className="info-value">${item.packagePrice}</span>
             </div>
             <div className="product-info">
-                <span className="info-label">Tenure:</span>
+                <span className="info-label"></span>
                 <span className="info-value">{item.tenure} months</span>
             </div>
-            {/* Add more product details here as needed */}
+            {item.claimedOn === null && (
+                <button className="claim-insurance-btn" onClick={handleClaimInsurance}>
+                Claim Insurance
+            </button>
+            )}
+            {item.claimedOn !== null && (
+                <button className="claim-insurance-btn-red">
+                Insurance Claimed
+            </button>
+            )}
         </div>
     );
 };
