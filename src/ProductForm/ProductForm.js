@@ -12,11 +12,6 @@ function ProductForm(props) {
     const location = useLocation();
     const [state, dispatch] = useStateValue();
     let product = location?.state?.product ? location.state.product : null;
-    const [title, setTitle] = useState(product?.title ? product.title : '');
-    const [description, setDescription] = useState(product?.description ? product.description : '');
-    const [price, setPrice] = useState(product?.price ? product.price : '');
-    const [quantity, setQuantity] = useState(product?.quantity ? product.quantity : '');
-    const [categories, setCategories] = useState([]);
 
     const [vehiclename, setVehiclename] = useState('');
     const [vehiclemodel, setVehiclemodel] = useState('');
@@ -28,35 +23,28 @@ function ProductForm(props) {
     const [mileage, setMileage] = useState('');
     const [vehicleId, setVehiclestatusId] = useState('');
     const [packageId, setPackageId] = useState('');
-    // const [selected_package, setSelected_package] = useState('');
     const [selected_package_num, setSelected_package_num] = useState('');
     const [latestVehicleId, setLatestVehicleId] = useState('');
 
     
     let status = null;
-    let selected_package = null;
     let [packages, setPackages] = useState([]);
 
 
-    const handleResponse = (response) => {
-        if (status == 200){
-            get_packages();
-        }
-    }
 
     const register_vehicle = (event, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage) => {
         event.preventDefault();
         
         const fetchData = async () => {
             const url = `${API_URL}/register-vehicle`;
-            const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
+            const token = localStorage.getItem("token"); 
 
             try {
                 const response = await fetch(url, {
-                    method: 'POST', // or 'POST', 'PUT', 'DELETE', etc.
+                    method: 'POST', 
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` // Using Bearer token, but adjust if using a different scheme
+                        'Authorization': `Bearer ${token}` 
                     },
                         body: JSON.stringify({
                             'userEmail': localStorage.getItem("userEmail"),
@@ -87,24 +75,6 @@ function ProductForm(props) {
 
     const subscribe_package = (event, vehicleId, packageId) => {
         event.preventDefault();
-        // fetch(url, {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //         'Authorization': `Token ${state.token}`
-        //     },
-        //     body: JSON.stringify({
-        //         'userEmail' : "id",
-        //         'vehicleId': vehicleId, 
-        //         'packageId': packageId
-        //     })
-        // })
-        // .then(resp => {
-        //     status = resp.status;
-        //     return resp.json();
-        // })
-        // .then(res => handleResponse(res))
-        // .catch(errors => console.log(errors));
 
         const subscribe = async () => {
             const url = `${API_URL}/subscribe-package`;
@@ -152,14 +122,14 @@ function ProductForm(props) {
         const loadPackages = async () => {
             const url = `${API_URL}/get-packages`;
 
-            const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
+            const token = localStorage.getItem("token");
 
             try {
                 const response = await fetch(url, {
-                    method: 'POST', // or 'POST', 'PUT', 'DELETE', etc.
+                    method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}` // Using Bearer token, but adjust if using a different scheme
+                        'Authorization': `Bearer ${token}`
                     },
                     body: JSON.stringify({
                         'userEmail': localStorage.getItem("userEmail"),
@@ -202,7 +172,6 @@ function ProductForm(props) {
 
                 <h1 id="header1">Please enter the vehicle information</h1>
 
-                {/* <div className="TitDescPriQuanr" id="TitDescPriQuan-form"> */}
                     <form id="TitDescPriQuan-form">
                         <input 
                             placeholder="Vehicle Name"
@@ -277,7 +246,6 @@ function ProductForm(props) {
                             <th>Description</th>
                             <th>Price</th>
                             <th>Tenure</th>
-                            {/* <th>Select</th> */}
                         </tr>
                         </thead>
                         <tbody>
@@ -305,7 +273,7 @@ function ProductForm(props) {
                     </select>
 
                     {selectedPackageNum !== null && (
-                        <div>
+                        <div className="productForm__CatSubTag__options">
                         <h3>Selected Package Details:</h3>
                         <p>Name: {packages[selectedPackageNum].packageName}</p>
                         <p>Description: {packages[selectedPackageNum].packageDescription}</p>

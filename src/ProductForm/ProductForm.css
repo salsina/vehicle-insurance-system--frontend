@@ -3,9 +3,6 @@
     flex-direction: column;
     align-items: center;
     background-color: rgb(10, 26, 44);
-    /* background: -webkit-linear-gradient(-90deg, rgba(10,26,44,1) 0, rgba(255,255,255,1) 100%);
-    background: -moz-linear-gradient(180deg, rgba(10,26,44,1) 0, rgba(255,255,255,1) 100%);
-    background: linear-gradient(180deg, rgb(10, 26, 44) 0, rgba(255,255,255,1) 100%); */
     background-position: 50% 50%;
     height: max-content;
     z-index: 1;
@@ -17,8 +14,6 @@
     margin-bottom: 40px;
     max-width: 800px;
     height: fit-content;
-    /* display: flex;
-    flex-direction: column; */
     border-radius: 5px;
     border: 2px solid lightgray;
     padding: 20px;
@@ -134,11 +129,6 @@
     transform: rotate(45deg);
   }
   
-  /* .buttuns{
-    display:flex;
-    flex-direction: column;
-  } */
-
 .productForm_Container_button1 {
     margin-top: 5px;
     -webkit-border-radius: 60px;

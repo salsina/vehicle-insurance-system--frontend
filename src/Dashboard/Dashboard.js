@@ -16,12 +16,15 @@ function Dashboard() {
     let products = [];
     let [p, setProducts] = useState([]);
     const [componentnum, setComponentnum] = useState(1);
+    const [packages, setPackages] = useState([]);
 
 
     useEffect(() => {
         const fetchData = async () => {
             let temp = await GetUser(state);
             setUser(temp);
+            setPackages(temp['subscribedPackages']);
+            console.log(temp['subscribedPackages'])
         };
 
         fetchData();
@@ -47,10 +50,6 @@ function Dashboard() {
                         My insurance
                     </div>
                     
-                    {/* <div onClick={() => setComponentnum(2)}>
-                        Claim insurance
-                    </div> */}
-
                 </div>
                 
                 <p> My profile</p>
@@ -66,7 +65,7 @@ function Dashboard() {
 
                 <Header_dashboard User={user}/>
 
-                {componentnum === 1 ? (<Dashboard_Inventory  products = {p}/>) : null}
+                {componentnum === 1 ? (<Dashboard_Inventory  products = {packages}/>) : null}
 
                 {componentnum === 2 ? (<Dashboard_Orders />) : null}
 
