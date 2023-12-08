@@ -52,7 +52,7 @@ function Dashboard_MyAccount() {
                             <span>{user ? user.eyeColor : '-----'}</span>
                         </div>
                         <div className="info-field">
-                            <label>Blood Grouup</label>
+                            <label>Blood Group</label>
                             <span>{user ? user.bloodGroup : '-----'}</span>
                         </div>                    </div>
                 </div>

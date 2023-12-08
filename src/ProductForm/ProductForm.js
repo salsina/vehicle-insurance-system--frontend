@@ -30,11 +30,12 @@ function ProductForm(props) {
     const [packageId, setPackageId] = useState('');
     // const [selected_package, setSelected_package] = useState('');
     const [selected_package_num, setSelected_package_num] = useState('');
+    const [latestVehicleId, setLatestVehicleId] = useState('');
 
+    
     let status = null;
     let selected_package = null;
-    let [p, setPackages] = useState([]);
-    let packages = [];
+    let [packages, setPackages] = useState([]);
 
 
     const handleResponse = (response) => {
@@ -76,10 +77,9 @@ function ProductForm(props) {
 
                 const data = await response.json();
                 console.log(data);
-                // Handle the data...
+                get_packages();
             } catch (error) {
                 console.error('Fetch error:', error);
-                // Handle the error...
             }
         };
         fetchData();
@@ -87,26 +87,59 @@ function ProductForm(props) {
 
     const subscribe_package = (event, vehicleId, packageId) => {
         event.preventDefault();
-        const url = `${API_URL}/subscribe-package`;
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Token ${state.token}`
-            },
-            body: JSON.stringify({
-                'userId' : "id",
-                'vehicleId': vehicleId, 
-                'packageId': packageId
-            })
-        })
-        .then(resp => {
-            status = resp.status;
-            return resp.json();
-        })
-        .then(res => handleResponse(res))
-        .catch(errors => console.log(errors));
-        history("/dashboard")
+        // fetch(url, {
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Authorization': `Token ${state.token}`
+        //     },
+        //     body: JSON.stringify({
+        //         'userEmail' : "id",
+        //         'vehicleId': vehicleId, 
+        //         'packageId': packageId
+        //     })
+        // })
+        // .then(resp => {
+        //     status = resp.status;
+        //     return resp.json();
+        // })
+        // .then(res => handleResponse(res))
+        // .catch(errors => console.log(errors));
+
+        const subscribe = async () => {
+            const url = `${API_URL}/subscribe-package`;
+
+            const token = localStorage.getItem("token"); 
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST', 
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` 
+                    },
+                    body: JSON.stringify({
+                        'userEmail': localStorage.getItem("userEmail"),
+                        'vehicleId': vehicleId, 
+                        'packageId': packageId
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log(data);
+                history("/dashboard")
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        };
+
+        subscribe();
+
     }
 
     async function get_packages() {
@@ -114,27 +147,40 @@ function ProductForm(props) {
 
         const url = `${API_URL}/get-packages`;
         let temp = await GetUser(state);
-        let latestVehicleId = temp.vehicles.at(-1)['id'];
-        const loadPackages = async () => { return await Promise.all(
-            await fetch(url, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Token ${state.token}`
-                },
-                body: JSON.stringify({
-                    'userEmail': localStorage.getItem("userEmail"),
-                    'vehicleId': latestVehicleId,
-                })
-    
-            })
-            .then(resp => resp.json())
-            .then(res => {
-                setPackages(res);
-                console.log(res);
-            })
-            .catch(errors => console.log(errors))
-        )};
+        let temp2 = temp.vehicles.at(-1)['id'];
+        setLatestVehicleId(temp2);
+        const loadPackages = async () => {
+            const url = `${API_URL}/get-packages`;
+
+            const token = localStorage.getItem("token"); // This should be securely retrieved, e.g., from state, context, or storage
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST', // or 'POST', 'PUT', 'DELETE', etc.
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${token}` // Using Bearer token, but adjust if using a different scheme
+                    },
+                    body: JSON.stringify({
+                        'userEmail': localStorage.getItem("userEmail"),
+                        'vehicleId': temp2,
+                    })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+
+                const data = await response.json();
+                console.log(data);
+                setPackages(data);
+
+            } catch (error) {
+                console.error('Fetch error:', error);
+            }
+        };
+
+
         loadPackages();
 
         document.getElementById("TitDescPriQuan-form").style.display = "none";
@@ -143,6 +189,11 @@ function ProductForm(props) {
         document.getElementById("header2").style.display = "block";
     }   
   
+        const [selectedPackageNum, setSelectedPackageNum] = useState(null);
+      
+        const handlePackageSelect = (e) => {
+          setSelectedPackageNum(e.target.value);
+        };  
 
 
     return (
@@ -220,59 +271,54 @@ function ProductForm(props) {
 
                     <div className="productForm__CatSubTag__options">
                     <table>
-                    <thead>
+                        <thead>
                         <tr>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Price</th>
-                        <th>Tenure</th>
-                        {/* <th>Select</th> */}
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Tenure</th>
+                            {/* <th>Select</th> */}
                         </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            packages?.map((item, index) => (
-                                <Product
-                                id="123"
-                                packageName= {'first package'}
-                                packageDescription={'annual'}
-                                packagePrice={5000}
-                                tenure={12}
-                                />
-                             ))
-                        }
-
-                    </tbody>
-                    <select id="dropdown">
-                        {
-                        packages?.map((item, index) => (
-                                <Product
-                                id="123"
-                                packageName= {'first package'}
-                                packageDescription={'annual'}
-                                packagePrice={5000}
-                                tenure={12}
-                                />
-                             ))
-                        }
-                       {
-                        packages?.map((item, index) => (
-                            <option value={index}>{item.packageName}</option>
-                            ))
-                        }
-                        <option value="option2">Package 2</option>
-                        <option value="option3">Package 3</option>
-                    </select>
-                    {/* {selected_package = document.getElementById("dropdown")} */}
-                    {/* {setSelected_package_num(selected_package.value)} */}
+                        </thead>
+                        <tbody>
+                        {packages?.map((item, index) => (
+                            <Product
+                            key={item.id}
+                            id={item.id}
+                            packageName={item.packageName}
+                            packageDescription={item.packageDescription}
+                            packagePrice={item.packagePrice}
+                            tenure={item.tenure}
+                            />
+                        ))}
+                        </tbody>
                     </table>
 
+                    <label htmlFor="dropdown">Select a Package:  </label>
+                    <select id="dropdown" onChange={handlePackageSelect} value={selectedPackageNum || ''}>
+                        <option value="" disabled>--</option>
+                        {packages?.map((item, index) => (
+                        <option key={item.id} value={index}>
+                            {item.packageName}
+                        </option>
+                        ))}
+                    </select>
+
+                    {selectedPackageNum !== null && (
+                        <div>
+                        <h3>Selected Package Details:</h3>
+                        <p>Name: {packages[selectedPackageNum].packageName}</p>
+                        <p>Description: {packages[selectedPackageNum].packageDescription}</p>
+                        <p>Price: {packages[selectedPackageNum].packagePrice}</p>
+                        <p>Tenure: {packages[selectedPackageNum].tenure}</p>
+                        </div>
+                    )}
 
                     </div>
 
 
-                    <button className="productForm_Container_button1"type='submit' onClick={(e) => subscribe_package(e, vehicleId, packages[selected_package_num-1].packageId)}>
-                            submit
+                    <button className="productForm_Container_button1"type='submit' onClick={(e) => subscribe_package(e, latestVehicleId, packages[selectedPackageNum].id)}>
+                            Submit
                     </button>
                     <br></br>
                     <Link to="/dashboard">

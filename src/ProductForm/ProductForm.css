@@ -170,16 +170,7 @@
 .productForm__CatSubTag{
   display: none;
 }
-.productForm__CatSubTag__options{
-  display: flex;
-  justify-content: space-between;
-  border-bottom: 1px dashed rgb(0, 0, 0);
-  border-bottom-width: 1px; 
-}
 
-.productForm__CatSubTag__options > p{
-  align-items: center;
-}
 
 .productForm__CatSubTag__dropdown{
   margin-top: 5%;
@@ -244,4 +235,33 @@
 .productForm__getImage__form__header > h4{
   width: 40%;
   font-family: 'Times New Roman', Times, serif;
+}
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+thead {
+  background-color: #f2f2f2;
+}
+
+th, td {
+  padding: 12px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+select {
+  padding: 10px;
+  margin-right: 10px;
+}
+
+/* Additional styles for the selected package details */
+.productForm__CatSubTag__options {
+  margin-top: 20px;
+  padding: 10px;
+  border: 1px solid #ddd;
 }
