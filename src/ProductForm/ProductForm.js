@@ -47,7 +47,7 @@ function ProductForm(props) {
                             'vehicleModel': vehiclemodel,
                             'vehicleType': vehicletype,
                             'licenseNumber': licensenumber,
-                            'vehicleRegisterationNumber': registrationnumber,
+                            'vehicleRegistrationNumber': registrationnumber,
                             'purchaseDate': purchasedate,
                             'vehicleStatus': vehiclestatus,
                             'mileage': mileage

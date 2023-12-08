@@ -50,7 +50,9 @@ function Dashboard() {
                     </div>
                     
                 </div>
-                
+                <br/>
+                <br/>
+
                 <p> My profile</p>
                 <div className="dashboard__left__management">
                     <div onClick={() => setComponentnum(3)}>

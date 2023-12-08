@@ -26,8 +26,17 @@ function Signup() {
         
         if(status === 200) {
             message();
-        } else 
+        } else {
             setMassage(res.massage);
+            console.log(res.message);
+            Swal.fire({
+                icon: 'error',
+                title: 'Sign up Failed',
+                text: 'There was an error processing your insurance claim. Please try again.',
+              });
+
+        }
+
     }
     
     const signup = (event, email, name, password, phonenumber, address, dob, height, gender, eyecolor, bloodgroup) => {
@@ -99,7 +108,7 @@ function Signup() {
                     <h5>E-mail</h5>
                     <input className="signup__input"
                         placeholder="example@domain.com"
-                        type='text' 
+                        type='email' 
                         value={email} 
                         onChange={e => setEmail(e.target.value)}
                     />
