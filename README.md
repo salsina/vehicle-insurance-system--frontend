@@ -18,7 +18,7 @@ My Dashboard: A personalized dashboard for users to view their insurance that we
 
 My Profile: It displays the detailed personal information, contact details, the model, license plate, registration number, etc. of the car.
 
-Request Insurance Package: In order to request the insurance package, the user will need to put their vehicle information. The user can select their desired insurance package from the available options.
+Request Insurance Package: In order to request the insurance package, the user will need to put their vehicle information. Based on the user and their vehicle information, the user can select their desired insurance package from the recommended available package options.
 
 Claim Insurance: The User can select their preferable Claim Insurance in the Dashboard after the request and selection of their insurance package. 
 
