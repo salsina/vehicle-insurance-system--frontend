@@ -36,7 +36,6 @@ const PackageDashboard = ({ item }) => {
                 }
 
                 const data = await response.json();
-                console.log(data);
 
                 Swal.fire({
                     icon: 'success',

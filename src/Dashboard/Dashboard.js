@@ -23,7 +23,6 @@ function Dashboard() {
             let temp = await GetUser(state);
             setUser(temp);
             setPackages(temp['subscribedPackages']);
-            console.log(temp['subscribedPackages'])
         };
 
         fetchData();
