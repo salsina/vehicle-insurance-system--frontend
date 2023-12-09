@@ -1,7 +1,7 @@
 # Vehicle-insurance-system--frontend
 
 ### Run Frontend
-- Change directory to `frontend`
+- Clone this repository
 - Install dependency
     ```shell
     npm install --force
@@ -16,7 +16,7 @@
 
 My Dashboard: A personalized dashboard for users to view their insurance that were claimed and the selection of the insurance packages. It displays the detailed information of the insurance packages about coverage, prices, and tenures in My Insurance after the request and selection of the insurance packages. 
 
-My Profile: It displays the detailed personal information, contact details, the model, license plate, registration number, etc. of the car.
+My Profile: It displays the detailed personal information, contact details, the model, license plate, registration number, deiver license, license expiry etc. of the car.
 
 Request Insurance Package: In order to request the insurance package, the user will need to put their vehicle information. Based on the user and their vehicle information, the user can select their desired insurance package from the recommended available package options.
 
