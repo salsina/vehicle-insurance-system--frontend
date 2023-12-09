@@ -86,13 +86,7 @@ function Login(props) {
                     </button>
 
                 </form>
-
-                <Link to='/'>
-                    <p className="p">
-                        Forgot password?
-                    </p>
-                </Link>
-
+                <p></p>
                 <Link to='/signup'>
                     Create your VIS account
                 </Link>

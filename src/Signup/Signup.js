@@ -28,7 +28,6 @@ function Signup() {
             message();
         } else {
             setMassage(res.massage);
-            console.log(res.message);
             Swal.fire({
                 icon: 'error',
                 title: 'Sign up Failed',

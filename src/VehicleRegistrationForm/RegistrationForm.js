@@ -63,7 +63,6 @@ function RegistrationForm(props) {
                 }
 
                 const data = await response.json();
-                console.log(data);
                 get_packages();
             } catch (error) {
                 console.error('Fetch error:', error);
@@ -99,7 +98,6 @@ function RegistrationForm(props) {
                 }
 
                 const data = await response.json();
-                console.log(data);
                 history("/dashboard")
 
             } catch (error) {
@@ -141,7 +139,6 @@ function RegistrationForm(props) {
                 }
 
                 const data = await response.json();
-                console.log(data);
                 setPackages(data);
 
             } catch (error) {

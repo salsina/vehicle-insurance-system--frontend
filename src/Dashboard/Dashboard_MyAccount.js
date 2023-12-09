@@ -72,7 +72,7 @@ function Dashboard_MyAccount() {
             <div className="my-cars-container">
                 <h2>My Cars</h2>
                 {user && user['vehicles'].map(item => (
-                    <div className="car-info">
+                    <div key={item.id} className="car-info">
                         <h3>{item.vehicleName}</h3>
                         <div className="car-details">
                             <div className="detail-item"><strong>Model:</strong> {item.vehicleModel}</div>
@@ -81,6 +81,8 @@ function Dashboard_MyAccount() {
                             <div className="detail-item"><strong>Registration Number:</strong> {item.vehicleRegistrationNumber}</div>
                             <div className="detail-item"><strong>Status:</strong> {item.vehicleStatus}</div>
                             <div className="detail-item"><strong>Mileage:</strong> {item.mileage}</div>
+                            <div className="detail-item"><strong>Driver License:</strong> {item.drivingLicense}</div>
+                            <div className="detail-item"><strong>License Expiry:</strong> {item.licenseDateOfExpiry}</div>
                         </div>
                     </div>
                 ))}
