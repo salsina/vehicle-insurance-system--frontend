@@ -63,10 +63,29 @@ function Signup() {
         })
         .then(resp => {
             status = resp.status;
-            return resp.json();
+            if (status === 200) {
+                return resp.json();
+            }
         })
         .then(res => handleResponse(res))
-        .catch(errors => console.log(errors));
+        .catch(errors => {
+            console.log(errors);
+            const Toast = Swal.mixin({
+                toast: true,
+                position: "top-end",
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.onmouseenter = Swal.stopTimer;
+                  toast.onmouseleave = Swal.resumeTimer;
+                }
+              });
+              Toast.fire({
+                icon: "error",
+                title: "Sign up failed"
+              });
+        });
         
     }
 
@@ -109,13 +128,16 @@ function Signup() {
                         placeholder="example@domain.com"
                         type='email' 
                         value={email} 
+                        required={true}
                         onChange={e => setEmail(e.target.value)}
                     />
 
                     <h5>Name</h5>
                     <input className="signup__input"
-                        placeholder="First-name"
+                        placeholder="Full name"
                         type='text' 
+                        minLength={3}
+                        required={true}
                         value={name} 
                         onChange={e => setName(e.target.value)}
                     />
@@ -123,7 +145,9 @@ function Signup() {
                     <h5>Phone</h5>
                     <input className="signup__input"
                         placeholder="Phone Number"
-                        type='text' 
+                        type='text'
+                        minLength={6}
+                        required={true}
                         value={phonenumber} 
                         onChange={e => setPhonenumber(e.target.value)}
                     />
@@ -132,6 +156,8 @@ function Signup() {
                     <input className="signup__input"
                         placeholder="Address"
                         type='text' 
+                        minLength={4}
+                        required={true}
                         value={address} 
                         onChange={e => setAddress(e.target.value)}
                     />
@@ -140,6 +166,8 @@ function Signup() {
                     <input className="signup__input"
                         placeholder="1990-11-23"
                         type='text' 
+                        minLength={6}
+                        required={true}
                         value={dob} 
                         onChange={e => setDob(e.target.value)}
                     />   
@@ -148,14 +176,14 @@ function Signup() {
                     <input className="signup__input"
                         placeholder="170"
                         type='double' 
-                        value={height} 
+                        value={height}
                         onChange={e => setHeight(e.target.value)}
                     />                    
                     <h5>gender</h5>
                     <input className="signup__input"
                         placeholder="Male, Female, Other"
                         type='text' 
-                        value={gender} 
+                        value={gender}                     
                         onChange={e => setGender(e.target.value)}
                     />                    
                     <h5>Eye Color</h5>
@@ -169,6 +197,7 @@ function Signup() {
                     <input className="signup__input"
                         placeholder="B-"
                         type='text' 
+                        minLength={2}
                         value={bloodgroup} 
                         onChange={e => setBloodgroup(e.target.value)}
                     />                    
@@ -176,7 +205,9 @@ function Signup() {
                     <h5>Password</h5>
                     <input className="signup__input"
                         placeholder="password"
-                        type='password' 
+                        type='password'
+                        minLength={6}
+                        required={true}
                         value={password} 
                         onChange={e => setPassword(e.target.value)}
                     />
@@ -184,7 +215,9 @@ function Signup() {
                     <h5>Confirm password</h5>
                     <input className="signup__input"
                         placeholder="Confirm password"
-                        type='password' 
+                        type='password'
+                        minLength={6}
+                        required={true}
                         value={cpassword} 
                         onChange={e => setCpassword(e.target.value)}
                     />
