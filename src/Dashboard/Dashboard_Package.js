@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react'
 import { Link } from 'react-router-dom';
-import Product_dashboard from '../Products/Product_dashboard';
 import './Dashboard_Inventory.css';
+import PackageDashboard from '../Packages/PackageDashboard';
 
-function Dashboard_Inventory({subscriptions}) {
-
+function Dashboard_Package({subscriptions}) {
 
     return (
 
@@ -29,7 +28,7 @@ function Dashboard_Inventory({subscriptions}) {
                 <div className="dashboard-inventory-products">
                     {subscriptions?.map((item) => (
                         <div className="dashboard-item" key={item.id}>
-                            <Product_dashboard item={item} />
+                            <PackageDashboard item={item} />
                         </div>
                     ))}
                 </div>
@@ -39,4 +38,4 @@ function Dashboard_Inventory({subscriptions}) {
 
 }
 
-export default Dashboard_Inventory
+export default Dashboard_Package;

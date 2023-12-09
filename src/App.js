@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Switch, Route, Routes} from "react-router-dom";
 import Login from './Login/Login';
 import Signup from './Signup/Signup'
 import Dashboard from './Dashboard/Dashboard';
-import ProductForm from './ProductForm/ProductForm';
+import RegistrationForm from './VehicleRegistrationForm/RegistrationForm';
 import { useStateValue } from './StateManager/StateProvider';
 import { API_URL } from './EnviormentVariables';
 
@@ -25,7 +25,7 @@ function App() {
 
             <Route exact path="/dashboard" element={<Dashboard/>} />
 
-            <Route exact path="/dashboard/package" element={<ProductForm/>} />
+            <Route exact path="/dashboard/package" element={<RegistrationForm/>} />
             
           </Routes>
 

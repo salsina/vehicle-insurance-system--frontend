@@ -1,12 +1,12 @@
 import React from 'react';
-import './Product_dashboard.css'; // Assuming you have a CSS file for styling
+import './Package_dashboard.css'; // Assuming you have a CSS file for styling
 import { API_URL } from '../EnviormentVariables';
 import { useNavigate } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { useStateValue } from '../StateManager/StateProvider';
 
 
-const Product_dashboard = ({ item }) => {
+const PackageDashboard = ({ item }) => {
     const history = useNavigate();
   const { packageName, packageDescription, packagePrice, tenure } = item;
 
@@ -86,5 +86,5 @@ const Product_dashboard = ({ item }) => {
     );
 };
 
-export default Product_dashboard;
+export default PackageDashboard;
 

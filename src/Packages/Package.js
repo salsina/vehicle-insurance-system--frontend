@@ -1,7 +1,7 @@
 import React from 'react'
-import "./Product.css"
+import "./Package.css"
 
-function Product(props) {
+function Package(props) {
     return (
 
         <tr>
@@ -16,4 +16,4 @@ function Product(props) {
     )
 }
 
-export default Product
+export default Package;

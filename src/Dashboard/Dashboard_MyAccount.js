@@ -4,7 +4,7 @@ import { GetUser } from '../App';
 import './Dashboard_MyAccount.css';
 import EditSharpIcon from '@material-ui/icons/EditSharp';
 import { API_URL } from '../EnviormentVariables';
-import Product_dashboard from "../Products/Product_dashboard";
+import PackageDashboard from "../Packages/PackageDashboard";
 
 function Dashboard_MyAccount() {
 

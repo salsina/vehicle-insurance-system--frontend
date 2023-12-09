@@ -7,6 +7,7 @@ import { Link } from 'react-router-dom';
 
 function Header_dashboard() {
     const [state, dispatch] = useStateValue();
+    const userEmail = localStorage.getItem("userEmail");
 
     const logout = () => {
         dispatch({
@@ -27,19 +28,9 @@ function Header_dashboard() {
         <div className="header__dashboard">
             
             <div className="header__dashboard__nav">
-                
-                <div className="header__nav__notifications">  
-                    <NotificationsIcon />
-                </div>
-
-                <div className="header__nav__settings">
-                    <SettingsApplicationsSharpIcon />
-                </div>
-
                 <div className="header__nav_profile">
-
                     <span className="header__optionLineOne">
-                        Hello
+                        Hello, {userEmail}
                     </span>
 
                 </div>

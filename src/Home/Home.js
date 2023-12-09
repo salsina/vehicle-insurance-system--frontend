@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { GetUser } from '../App'
-import Product from '../Products/Product'
+import Package from '../Packages/Package'
 import { useStateValue } from '../StateManager/StateProvider'
 import './Home.css'
 import Header from '../Header/Header'
