@@ -3,10 +3,10 @@ import { GetUser } from '../App';
 import { useStateValue } from '../StateManager/StateProvider';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { API_URL } from '../EnviormentVariables';
-import './ProductForm.css'
-import Product from '../Products/Product';
+import './RegistrationForm.css'
+import Package from '../Packages/Package';
 import AddBoxIcon from '@material-ui/icons/AddBox';
-function ProductForm(props) {
+function RegistrationForm(props) {
     let user;
     const history = useNavigate();
     const location = useLocation();
@@ -21,6 +21,8 @@ function ProductForm(props) {
     const [purchasedate, setPurchasedate] = useState('');
     const [vehiclestatus, setVehiclestatus] = useState('');
     const [mileage, setMileage] = useState('');
+    const [drivingLicense, setDrivingLicense] = useState('');
+    const [drivingLicenseExpiry, setDrivingLicenseExpiry] = useState('');
     const [latestVehicleId, setLatestVehicleId] = useState('');
 
     
@@ -50,7 +52,9 @@ function ProductForm(props) {
                             'vehicleRegistrationNumber': registrationnumber,
                             'purchaseDate': purchasedate,
                             'vehicleStatus': vehiclestatus,
-                            'mileage': mileage
+                            'mileage': mileage,
+                            'drivingLicense': drivingLicense,
+                            'licenseDateOfExpiry': drivingLicenseExpiry
                         })
                 });
 
@@ -217,6 +221,18 @@ function ProductForm(props) {
                             value={mileage} 
                             onChange={(e) => setMileage(e.target.value)}
                         />
+                        <input 
+                            placeholder="Driver License"
+                            type='text' 
+                            value={drivingLicense} 
+                            onChange={(e) => setDrivingLicense(e.target.value)}
+                        />
+                        <input 
+                            placeholder="Driver License Exp"
+                            type='text' 
+                            value={drivingLicenseExpiry} 
+                            onChange={(e) => setDrivingLicenseExpiry(e.target.value)}
+                        />
                             <button className="productForm_Container_button1"type='submit' onClick={(e) => register_vehicle(e, vehiclename, vehiclemodel, vehicletype, licensenumber, registrationnumber, purchasedate, vehiclestatus, mileage)}>
                                 Continue
                             </button>
@@ -243,7 +259,7 @@ function ProductForm(props) {
                         </thead>
                         <tbody>
                         {packages?.map((item, index) => (
-                            <Product
+                            <Package
                             key={item.id}
                             id={item.id}
                             packageName={item.packageName}
@@ -293,4 +309,4 @@ function ProductForm(props) {
     )
 }
 
-export default ProductForm
+export default RegistrationForm
